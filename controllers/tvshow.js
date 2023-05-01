@@ -3,21 +3,26 @@ var TVShow  = mongoose.model('TVShow');
 
 //GET - Return all tvshows in the DB
 exports.findAllTVShows = function(req, res) {
-	TVShow.find(function(err, tvshows) {
-    if(err) res.send(500, err.message);
-
+	TVShow.find().then((err, tvshows) => {
+        if(err){
+            res.status(500).send(err.message);
+            return;
+        };
     console.log('GET /tvshows')
-		res.status(200).jsonp(tvshows);
+		res.status(200).json(tvshows);
 	});
 };
 
 //GET - Return a TVShow with specified ID
 exports.findById = function(req, res) {
-	TVShow.findById(req.params.id, function(err, tvshow) {
-    if(err) return res.send(500, err.message);
+	TVShow.findById(req.params.id).then((err, tvshow) => {
+    if(err){
+        res.status(500).send(err.message);
+        return;
+    };
 
     console.log('GET /tvshow/' + req.params.id);
-		res.status(200).jsonp(tvshow);
+		res.status(200).json(tvshow);
 	});
 };
 
@@ -36,15 +41,19 @@ exports.addTVShow = function(req, res) {
 		summary:  req.body.summary
 	});
 
-	tvshow.save(function(err, tvshow) {
-		if(err) return res.send(500, err.message);
-    res.status(200).jsonp(tvshow);
+	tvshow.save().then((err, tvshow) => {
+        if(err){
+            res.status(500).send(err.message);
+            return;
+        };
+    res.status(200).json(tvshow);
+    
 	});
 };
 
 //PUT - Update a register already exists
 exports.updateTVShow = function(req, res) {
-	TVShow.findById(req.params.id, function(err, tvshow) {
+	TVShow.findById(req.params.id).then((err, tvshow) => {
 		tvshow.title   = req.body.petId;
 		tvshow.year    = req.body.year;
 		tvshow.country = req.body.country;
@@ -53,18 +62,24 @@ exports.updateTVShow = function(req, res) {
 		tvshow.genre   = req.body.genre;
 		tvshow.summary = req.body.summary;
 
-		tvshow.save(function(err) {
-			if(err) return res.send(500, err.message);
-      res.status(200).jsonp(tvshow);
+		tvshow.save().then((err) => {
+            if(err){
+                res.status(500).send(err.message);
+                return;
+            };
+      res.status(200).json(tvshow);
 		});
 	});
 };
 
 //DELETE - Delete a TVShow with specified ID
 exports.deleteTVShow = function(req, res) {
-	TVShow.findById(req.params.id, function(err, tvshow) {
+	TVShow.findById(req.params.id).then((err, tvshow) => {
 		tvshow.remove(function(err) {
-			if(err) return res.send(500, err.message);
+            if(err){
+                res.status(500).send(err.message);
+                return;
+            };
       res.status(200);
 		})
 	});
