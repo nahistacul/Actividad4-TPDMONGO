@@ -3,19 +3,19 @@ var TVShow  = mongoose.model('TVShow');
 
 //GET - Return all tvshows in the DB
 exports.findAllTVShows = function(req, res) {
-	TVShow.find().then((err, tvshows) => {
+	TVShow.find().then((tvshows, err) => {
         if(err){
-            res.status(500).send(err.message);
-            return;
-        };
-    console.log('GET /tvshows')
-		res.status(200).json(tvshows);
+            res.status(500).send(err);
+        }else {
+			console.log('GET /tvshows')
+			res.status(200).json(tvshows);
+		}
 	});
 };
 
 //GET - Return a TVShow with specified ID
 exports.findById = function(req, res) {
-	TVShow.findById(req.params.id).then((err, tvshow) => {
+	TVShow.findById(req.params.id).then((tvshow, err) => {
     if(err){
         res.status(500).send(err.message);
         return;
@@ -41,19 +41,19 @@ exports.addTVShow = function(req, res) {
 		summary:  req.body.summary
 	});
 
-	tvshow.save().then((err, tvshow) => {
+	tvshow.save().then((tvshow, err) => {
         if(err){
             res.status(500).send(err.message);
-            return;
-        };
-    res.status(200).json(tvshow);
-    
+            return err.message;
+        }else {
+			res.status(200).json(tvshow);
+		}
 	});
 };
 
 //PUT - Update a register already exists
 exports.updateTVShow = function(req, res) {
-	TVShow.findById(req.params.id).then((err, tvshow) => {
+	TVShow.findById(req.params.id).then((tvshow, err) => {
 		tvshow.title   = req.body.petId;
 		tvshow.year    = req.body.year;
 		tvshow.country = req.body.country;
@@ -74,7 +74,7 @@ exports.updateTVShow = function(req, res) {
 
 //DELETE - Delete a TVShow with specified ID
 exports.deleteTVShow = function(req, res) {
-	TVShow.findById(req.params.id).then((err, tvshow) => {
+	TVShow.findById(req.params.id).then((tvshow, err) => {
 		tvshow.remove(function(err) {
             if(err){
                 res.status(500).send(err.message);
