@@ -1,32 +1,42 @@
-#2023-Actividad-4
+<h1>2023-Actividad-4</h1>
 
-Para que el proyecto funcione correctamente es necesario tener instalado: Node, MongoDB y mongosh, y como herramienta opcional: MongoDB Compass 
+<p>
+  Para que el proyecto funcione correctamente es necesario tener instalado: Node, MongoDB y mongosh, y como herramienta opcional: MongoDB Compass 
 Al descargar el proyecto utilizar el comando
+</p>
 
-$ npm install
+<code>npm install</code>
 
-para instalar todas las dependencias necesarias para el correcto funcionamiento.
+<p>
+  para instalar todas las dependencias necesarias para el correcto funcionamiento.
+</p>
+<p>
+  Para inicializar el servidor, ingresar el comando
+</p>
 
-Para inicializar el servidor, ingresar el comando
+<code>node app.js</code>
 
-$node app.js
+<p>
+  y se visualizara por consola
+</p>
 
-y se visualizara por consola
+<code>Node server running on http://localhost:5252
+  Connected to Database</code>
 
-$Node server running on http://localhost:5252
-$Connected to Database
+<p>
+  una vez que se establezca la conexion con el servidor.
+</p>
+<p>
+  Mediante una aplicacion como Postman y las sguientes rutas podemos utilizar los metodos CRUD:
+</p>
 
-una vez que se establezca la conexion con el servidor.
+<h5>GET - Visualizar todos los registros de la BD<h5>
+<h5>POST - Dar de alta un nuevo registro</h5>
 
-Mediante una aplicacion como Postman y las sguientes rutas podemos utilizar los metodos CRUD:
+<code>http://localhost:5252/api/tvshows</code>
 
-GET - Visualizar todos los registros de la BD
-POST - Dar de alta un nuevo registro
+<h5>GET - Visualizar un registro especifico</h5>
+<h5>PUT - Actualizar un registro</h5>
+<h5>DELETE - Eliminar un registro</h5>
 
-$http://localhost:5252/api/tvshows
-
-GET - Visualizar un registro especifico
-PUT - Actualizar un registro
-DELETE - Eliminar un registro
-
-$http://localhost:5252/api/tvshows/{id}
+<code>http://localhost:5252/api/tvshows/{id}</code>
